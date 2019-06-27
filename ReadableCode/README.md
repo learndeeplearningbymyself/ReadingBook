@@ -129,3 +129,30 @@ var euclidean_norm = function(v) {
     return Math.sqrt(retval);
 }
 ```
+Một cái tên tốt có nghĩa là biến hoặc hàm phải biểu thị rõ mục tiêu và giá trị của nó.　Trong ví dụ trên biến **retval** có thể thay bằng **sum_squares**. Điều này giúp cho việc thể hiện mục tiêu dễ dàng hơn cũng như hữu ích khi tìm bug.
+
+Tuy nhiên cũng có những trường hợp những tên tưởng chừng như sáo rỗng này lại có ý nghĩa. Chúng ta cùng xem ví dụ sau
+
+```java
+if (right < left) {
+    tmp = right;
+    right = left;
+    left = tmp;
+}
+```
+
+Đây là ví dụ kinh điển về đoạn code đảo giá trị của 2 số. Đặt tên biến là **tmp** sẽ cho thấy rằng đây là biến chỉ mang ý nghĩa là lưu trữ thông tin tạm thời, có khoảng thời gian tồn tại khá ngắn, ngoài ra nó không có ý nghĩa nào khác, đồng nghĩa với việc nó sẽ không được truyền vào hàm khác hay được ghi đè gía trị ở một vị trí nào khác trong chương trình.
+
+Dưới đây cũng là một ví dụ khá hay về việc sử dụng biến **tmp**
+
+```java
+tmp_file = tempFile.NamedTemporaryFile()
+SaveData(tmp_file)
+```
+
+Nếu thay vì là **tmp_file** mà là **tmp** thì sẽ không có sự rõ ràng khi người đọc sẽ không biết **tmp** là gì (file hay tên file, ...)
+
+> Advise: Nên sử dụng biến tmp một cách thận trọng cho mục đích lưu trữ ngắn hạn và tồn tại trong khoảng thời gian ngắn
+
+**Loop iterator**
+- 

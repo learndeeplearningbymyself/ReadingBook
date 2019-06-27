@@ -116,3 +116,16 @@ make = create, build
 > Key: Không sử dụng cách nói vòng vo khi đặt tên mà nên đặt tên một cách tường minh, rõ ràng
 
 ### 2.2. Tránh sử dụng những tên chung chung như tmp, retval
+
+Tránh chọn những tên trống rỗng như **tmp**, **retval**, **foo**, mà thay vào đó hãy chọn những tên biểu thị đúng mục đích và đặc tính của giá trị mà biến đó sẽ nhận.
+
+Ví dụ:
+```javascript
+var euclidean_norm = function(v) {
+    var retval = 0.0;
+    for (var i = 0; i < v.length; i += 1) {
+        retval += v[i] * v[i];
+    }
+    return Math.sqrt(retval);
+}
+```

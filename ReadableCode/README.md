@@ -217,3 +217,31 @@ var elapsed = (new Date()).getTime() - start;
 document.writeln("Read time: " + elapsed + " sec");
 ```
 
+Đoạn code trên nhìn qua có vẻ không vấn đề gì nhưng thực chất hàm **getTime** sẽ trả về đơn vị là **ms**. Nên để dễ hiểu và rõ ràng hơn, đoạn code trên nên sửa như sau
+
+```javascript
+var start_ms = (new Date()).getTime();
+
+var elapsed_ms = (new Date()).getTime() - start_s;
+
+document.writeln("Read time: " + elapsed_ms * 1000 + " sec");
+```
+
+**Thêm những thuộc tính quan trọng khác**
+
+Ngoài việc thêm thông tin về đơn vị vào tên biến, còn có các thông tin quan trọng khác như là **chú ý**, **nguy hiểm**, ...
+
+Ví dụ về vấn đề an toàn thông tin. Đa phần nguyên nhân là do chương trình nhận các dữ liệu thiếu đi tính an toàn. Vì thế với các dữ liệu kiểu này, các tên biến như **untrustedUrl**, **unsafeMessageBody** sẽ là thích hợp. Nếu như sau khi xử lí bằng các hàm tăng tính an toàn cho dữ liệu thì các tên như **trustedUrl** hoặc **safeMessageBody** là khá phù hợp
+
+Bảng dưới đây sẽ biểu thị việc thêm thông tin vào tên biến là quan trọng như thế nào
+
+| Trạng thái | Tên biến thông thường | Tên biến phù hợp |
+| ---------- | --------------------- | ---------------- |
+| password đang ở dạng plain text, nên trước khi xử lí phải tiến hành mã hoá | password | plaintext_password |
+| Trước khi hiển thị comment của người dùng càn tiến hành escaped | comment | unescaped_comment |
+| Chuyển mã kí tự của html thành mà UTF-8 | html | html_utf8 |
+| URL Encode dữ liệu nhập vào | data | data_urlenc |
+
+Tóm lại hãy thêm các thuộc tính vào những chỗ thể hiện ý nghĩa quan trọng của biến
+
+### 2.5. Quyết định độ dài của tên

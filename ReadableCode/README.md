@@ -155,4 +155,65 @@ Nếu thay vì là **tmp_file** mà là **tmp** thì sẽ không có sự rõ r�
 > Advise: Nên sử dụng biến tmp một cách thận trọng cho mục đích lưu trữ ngắn hạn và tồn tại trong khoảng thời gian ngắn
 
 **Loop iterator**
-- 
+
+- Những tên biến như **i, j, k, iter** tuy là những tên tối nghĩa nhưng thường được sử dụng để làm **index** hoặc **loop iterator**, nếu sử dụng với mục đích khác có thể gây hiểu nhầm.
+
+- Tuy nhiên có những cái tên có ý nghĩa hơn là **i, j, k, iter**
+Ta xét ví dụ sau
+```c++
+for (int i = 0; i < clubs.size(); i++) {
+    for (int j = 0; j < clubs[i].members.size(); j++) {
+        for (int k = 0; k < users.size(); k++) {
+            if (clubs[i].members[k] == users[j]) {
+                cout << "user[" << j << "] is in club[" << i << "]  << endl;
+            }
+        }
+    }
+}
+```
+
+Thoạt nhìn, đoạn code trên không hề có lỗi nhưng nếu để ý kĩ thì index của **members** và **users** là ngược nhau, đúng ra phải là
+
+```c++
+if (clubs[i].members[j] == users[k])
+```
+
+Trong trường hợp có nhiều iterators, ta có thể thêm tiếp đầu ngữ cho các biến, như ở ví dụ trên thay vì là **i**, **j**, **k** ta sẽ đặt tên như sau **ci**, **mi**, **ui**. Khi đó việc phát hiện lỗi cũng sẽ dễ hơn rất nhiều
+
+```c++
+if (clubs[ci].members[ui] == users[mi]) # Bug, tiếp đầu ngữ của iterator sai
+```
+
+> Advise: Khi sử dụng những tên biến tối nghĩa như tmp, it, retval cần cân nhắc lí do sử dụng thật kĩ lưỡng
+
+Hãy từ bỏ thói quen **sử dụng những tên vô nghĩa như foo khi không nghĩ ra tên thích hợp để đặt cho biến, hàm, class**. Thay vào đó, sử dụng 1 chút thời gian để nghĩ tên thích hợp, nếu biến điều đó thành thói quen thì khả năng đặt tên sẽ tăng lên đáng kể.
+
+### 2.3. Sử dụng những tên mang tính cụ thể thay vì mang tính trừu tượng
+
+Ta xét ví dụ với phương thức **ServerCanStart()**, phương thức này có nhiệm vụ xác nhận xem liệu server có thể lắng nghe ở 1 cổng TCP/IP hay không, nếu nhiệm vụ của phương thức là như vậy thì cái tên **ServerCanStart** là khá trừu tượng, thiếu tính cụ thể, thay vào đó ta có thể đặt tên là **CanListenOnPort**
+
+### 2.4. Thêm thông tin vào tên
+
+Như đã nói ở phần trước, đặt tên tốt cũng là một cách comment ngắn gọn. Vì thế, nếu có thông tin nào buộc phải thông báo cho người đọc code thì phải dùng từ ngữ để truyền đạt thông tin đó thông qua tên biến, hàm, ...
+
+Xét ví dụ:
+```java
+String id; // VD: aft3h454hj54
+```
+
+Nếu ID format là quan trọng thì nên đặt tên là **hex_id**
+
+**Đơn vị của giá trị**
+
+Với các biến liên quan đến **thời gian**, **bộ nhớ** thì nên thêm đơn vị cho tên biến (**_ms**, **_byte**)
+
+Xét ví dụ
+
+```javascript
+var start = (new Date()).getTime();
+
+var elapsed = (new Date()).getTime() - start;
+
+document.writeln("Read time: " + elapsed + " sec");
+```
+

@@ -245,3 +245,33 @@ Bảng dưới đây sẽ biểu thị việc thêm thông tin vào tên biến 
 Tóm lại hãy thêm các thuộc tính vào những chỗ thể hiện ý nghĩa quan trọng của biến
 
 ### 2.5. Quyết định độ dài của tên
+
+Một trong những quy ước ngầm đó chính là tên của biến không nên quá dài. Việc quyết định độ dài của tên hoàn toàn phụ thuộc vào mục đích sử dụng của biến
+
+Dưới đây là một vài quy tắc đơn giản sẽ hỗ trợ chúng ta trong việc quyết định độ dài của tên biến
+
+### Các tên ngắn sẽ thích hợp hơn với scope ngắn
+
+```java
+if (debug) {
+    map<string,int> m;
+    LookUpNamesNumbers(&m);
+    Print(m);
+}
+```
+
+Ở ví dụ trên, tên biến m có thể không mang quá nhiều ý nghĩa nhưng với một scope nhỏ như trên (trong phạm vi 1 câu lệnh **if**) thì việc đặt tên như vậy cũng không hẳn đã gây khó khăn cho người đọc.
+
+Nhưng với scope lớn hơn, hoặc là **global variable** thì đặt tên như vậy sẽ không bao hàm đủ thông tin cần thiết.
+
+### Sử dụng một cái tên dài hơn - Không còn bất kì vấn đề nào nữa
+
+Có rất nhiều lí do để tránh đặt một cái tên dài, một trong số đó là **khó để iết**, nhưng các **text editor** hiện đại đều có chức năng **word completion** để có thể hoàn thiện từ một cách tự động
+
+### Các từ viết tắt
+
+Thông thường các từ viết tắt sẽ được sử dụng trong các project (VD: thay vì **BackEndManager** thì sẽ là **BEManager**). Việc này thường có hại hơn là có lợi, đặc biệt với những người mới tham gia vào project (khó hiểu, mang tính chất mã hoá quá mạnh)
+
+Tuy nhiên với các từ viết tắt phổ biến như **str - string** **eval - evaluation**, thì việc đọc hiểu cũng sẽ không quá khó khăn
+
+### Loại bỏ các từ thừa

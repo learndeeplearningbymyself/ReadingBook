@@ -275,3 +275,73 @@ Thông thường các từ viết tắt sẽ được sử dụng trong các pro
 Tuy nhiên với các từ viết tắt phổ biến như **str - string** **eval - evaluation**, thì việc đọc hiểu cũng sẽ không quá khó khăn
 
 ### Loại bỏ các từ thừa
+
+Có những trường hợp loại bỏ đi những từ thừa trong tên biến mà vẫn không làm mất mát đi thông tin trong đó. Ta có thể lấy ví dụ như sau
+
+**ConvertToString** -> **ToString**
+**DoServeLoop** -> **ServeLoop**
+
+### 2.6. Truyền tải thông tin thông qua format tên
+
+Chúng ta có thể sử dụng các kí hiệu như _, /, chữ in hoa để truyền tải thông tin cho tên biến. VD như ở open source project (C++) của google sẽ có 1 vài quy ước đặt tên biến, class, hàm như sau.
+
+Ví dụ ở đoạn code
+```c++
+static const int kMaxOpenFiles = 100;
+
+class LogReader {
+    public:
+        void OpenFile(string local_file);
+
+    private:
+        int offset_;
+        DISALLOW_COPY_AND_ASSIGN(LogReader);
+}
+```
+
+Ta có thể rút ra được một vài quy tắc như sau
+- Tên class - **CamelCase**
+- Tên thuộc tính class - **lower_separated**
+- Tên hằng số không phải là **CONSTANT_NAME** mà là **kConstantName**, tên viết hoa hoàn toàn sẽ được dùng cho **MACRO_NAME**
+- Tên biến của class sẽ là **lower_** để phân biệt với **local variables**
+
+### Các quy ước khác về format tên
+
+- Với **jQuery**
+  - Các biến là jquery object sẽ có **$** trong chữ cái đầu tiên của tên
+
+- Với **javascript** thông thường (quy tắc được đề cập ở cuốn [JavaScript: The Good Parts](https://www.amazon.co.jp/JavaScript-Parts-%E2%80%95%E3%80%8C%E8%89%AF%E3%81%84%E3%83%91%E3%83%BC%E3%83%84%E3%80%8D%E3%81%AB%E3%82%88%E3%82%8B%E3%83%99%E3%82%B9%E3%83%88%E3%83%97%E3%83%A9%E3%82%AF%E3%83%86%E3%82%A3%E3%82%B9-Douglas-Crockford/dp/4873113911/ref=sr_1_1?adgrpid=54840574273&gclid=Cj0KCQjwu-HoBRD5ARIsAPIPenflLpz28vyfIEH_lGKkiuodgmbR4eAhvjoRIYezeeegZSIAndkjABQaAvIgEALw_wcB&hvadid=338525771739&hvdev=c&hvlocphy=1009309&hvnetw=g&hvpos=1t1&hvqmt=e&hvrand=17154409248115044252&hvtargid=aud-762433167318%3Akwd-298464948360&hydadcr=27521_11564932&jp-ad-ap=0&keywords=javascript+the+good+parts&qid=1561958770&s=gateway&sr=8-1))
+  - Với **constuctor** thì tên hàm sẽ viết hoa **toàn bộ** chứ cái đầu tiên
+  - Với **hàm thông thường** thì sẽ là **viết thường chữ cái thứ nhất**
+
+- Với HTML, CSS: tên của id, class sẽ như sau
+  - **id** sẽ sử dụng **lower_separate**
+  - **class** sẽ sử dụng **hyphen-separate**
+
+```html
+<div class="main-content" id="middle_column"></div>
+```
+
+Điều quan trọng hơn cả là đảm bảo **tính nhất quán** trong project
+
+### 2.7. Tổng kết
+
+Dưới đây sẽ là các gợi ý khi lựa chọn tên cho biến, hàm
+
+- **Chọn những từ rõ nghĩa** - Thay vì **Get** thì tuỳ vào trường hợp có thể sử dụng **Fetch** hoặc **Download** để thay thế
+
+- **Tránh những tên vô nghĩa như tmp, retval** - Nhưng việc lựa chọn những tên như trên lại hoàn toàn có thể nếu có lí do hợp lí
+
+- **Sử dụng những tên có tính cụ thể cao, qua đó có thể truyền tải được thông tin chi tiết nhất có thể** - **CanListenOnPort** sẽ có tính cụ thể cao hơn **ServerCanStart**
+
+- **Thêm những thông tin quan trọng vào tên biến** - Với biến có đơn vị là **ms** thì thêm **_ms** ở **hậu tố**, với các biến sau này cần escape thì thêm **raw_** vào tiền tố
+
+- **Với các biến có scope lớn thì dùng những tên dài** - Với những biến được gọi ở nhiều scope thì nên sử dụng thêm **1-2 kí tự** để đánh dấu. Với những scopes **chỉ có vài dòng** thì nên dùng tên ngắn
+
+- Chữ in hoa, _ cũng bao hàm ý nghĩa - Thêm dấu **_** vào **thuộc tính của class** để phân biệt với **biến local**
+
+### Chương 3: Tên gọi tránh sự hiểu nhầm
+
+> Key -  Luôn tự hỏi xem "Liệu cái tên này có gây ra sự hiểu nhầm về ý nghĩa hay không ?"
+
+### 3.1. Ví dụ: filter()

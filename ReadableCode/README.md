@@ -345,3 +345,38 @@ Dưới đây sẽ là các gợi ý khi lựa chọn tên cho biến, hàm
 > Key -  Luôn tự hỏi xem "Liệu cái tên này có gây ra sự hiểu nhầm về ý nghĩa hay không ?"
 
 ### 3.1. Ví dụ: filter()
+
+Cùng xem xét đoạn code dưới đây (tương tác với dữ liệu lấy ra từ database)
+
+```java
+results = Database.all_objects.filter("year <= 2011");
+```
+
+Biến `results` sẽ bao hàm những kết quả nào (trong 2 kết quả dưới đây)?
+- [year <= 2011] object
+- [year > 2011] object (ngược lại với kết quả bên trên)
+
+Điều dẫn đến sự khó hiểu ở trên là do cái tên **filter** có ý nghĩa mơ hồ. Không rõ ràng giữa việc **chọn lựa (select)** và **loại trừ** nên nó gây ra sự hiểu nhầm về mặt ý nghĩa như trên.
+
+Nếu là **chọn lựa** thì nên là **select** còn nếu là loại trừ thì nên là **exclude**
+
+### 3.2. Ví dụ Clip(text, length)
+
+Cùng xét đoạn code cắt paragraph như sau:
+
+```python
+# Cắt đoạn cuối của text và thêm (...) vào đó
+def Clip(text, length):
+    # body
+```
+
+Với cái tên **Clip()**, có thể hiểu theo 2 nghĩa
+- Xoá đi **length** kí tự từ phía cuối
+- loại bỏ đi tối đa **length** kí tự
+
+Để tránh nghi vấn cho người đọc nên chuyển tên hàm thành **Truncate(text, length)**
+
+Ngoài ra còn tên tham số **length**, nên đặt là **max_length** thì sẽ rõ ràng hơn về ý nghĩa. Trong chương trước, cũng đã có sự đề cập đến đơn vị trong tên biến. Vì trong trường hợp này, **length** biểu thị số lượng chữ cái nên cái tên **max_chars** sẽ thích hợp hơn
+
+### 3.3. Sử dụng min, max khi biến bao hàm giá trị giới hạn
+

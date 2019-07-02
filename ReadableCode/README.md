@@ -380,3 +380,52 @@ Ngoài ra còn tên tham số **length**, nên đặt là **max_length** thì s�
 
 ### 3.3. Sử dụng min, max khi biến bao hàm giá trị giới hạn
 
+Xét đoạn code kiểm tra điều kiện số lượng đồ trong shopping cart không vượt quá 10
+
+```python
+CART_TOO_BIG_LIMIT = 10
+
+if shopping_cart.num_items() >= CART_TOO_BIG_LIMIT:
+    Error("かーとにある商品数が多すぎる。)
+```
+
+Đoạn code trên mắc 1 lỗi cổ điển đó là lỗi **off-by-one**  (đây là lỗi liên quan tới điều kiện giới hạn). Ta có thể sửa **>=** thành **>**
+
+Nhưng bản chất của vấn đề lại nằm ở cái tên khá mơ hồ / tối nghĩa **CART_TOO_BIG_LIMIT**. Cái tên này không nói rõ là **bao hàm giá trị biên** hay **không bao hàm giá trị biên**
+
+> Advise: Cần làm rõ việc có bao hàm giá trị biên hay không thông qua việc thêm các tiếp đầu ngữ là max_ hoặc min_ vào tên biến
+
+Vì thế nên ta sẽ sửa tên biến từ **CART_TOO_BIG_LIMIT** thành **MAX_ITEMS_IN_CART**
+
+### 3.4. Sử dụng first, last khi chỉ định phạm vi giá trị
+
+Cùng xét một ví dụ khác về **<** và **<=**
+
+```python
+print integer_range(start=2, stop=4)
+```
+
+**start** là một cái tên ổn, nhưng **stop** thì lại mơ hồ. Liệu **stop=4** có **bao hàm 4** hay **không bao hàm 4** 
+Nếu bao hàm giá trị cuối cùng thì nên đặt tên là **first** và **last**
+
+```python
+set.PrintKeys(first="Bart", last="Maggie")
+```
+
+Ngoài cách gọi tên như trên, chúng ta hoàn toàn có thể sử dụng tên **min** và **max**
+
+### 3.5. Sử dụng begin và end theo ý nghĩa bao hàm / không bao hàm
+
+Trong lập trình **begin** sẽ được hiểu theo nghĩa là bao hàm giá trị, còn **end** sẽ là không bao hàm giá trị
+
+Cách viết
+
+```c++
+PrintEventsInRange("OCT 16 12:00am", "OCT 17 12:00am")
+```
+
+đơn giản hơn nhiều so với
+
+```c++
+PrintEventsInRange("OCT 16 12:00am", "OCT 16 11:59:59.9999am")
+```

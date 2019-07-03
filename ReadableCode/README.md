@@ -429,3 +429,51 @@ PrintEventsInRange("OCT 16 12:00am", "OCT 17 12:00am")
 ```c++
 PrintEventsInRange("OCT 16 12:00am", "OCT 16 11:59:59.9999am")
 ```
+
+### 3.6. Tên của biến Bool
+
+Khi đặt tên cho biến bool hoặc hàm trả về giá trị bool thì nên đặt sao cho tên mang ý nghĩa **true**, **false**
+
+Dưới đây là một ví dụ cho việc đặt tên không tốt
+
+```c
+bool read_password = true;
+```
+
+Bản thân từ **read** cũng mang nghĩa là **đọc**. Nên có thể hiểu theo 2 nghĩa sau đây
+
+- Sẽ đọc password
+- Đã đọc password (thể quá khứ của **read** cũng là **read**)
+
+Ở đây, thay vì read có thể sử dụng **need_password**, **user_is_authenticated**
+
+Với các biến bool, thì nên thêm tiếp đầu ngữ **is**, **has**, **can**, **should**
+Tránh dùng những tên phủ định như **disable_ssl** mà nên sử dụng **use_ssl**
+
+### 3.7. Phù hợp với kì vọng của người dùng
+
+Kể cả khi dùng với một ý nghĩa khác nhưng do **định kiến** hoặc **thói quen suy nghĩ** của người dùng mà việc đặt tên cũng có thể dẫn đến sự hiểu nhầm. Những tình huống đó, ta nên **chấp nhận định kiến của người dùng** và đặt một cái tên không gây hiểu nhầm
+
+### Ví dụ: get*()
+
+Rất nhiều lập trình viên thường có thói quen đặt tên cho phương thức bắt đầu bằng **get** cho các phương thức **chỉ lấy về giá trị của thuộc tính**
+
+Dưới đây là một ví dụ
+
+```java
+public class StatisticsCollector {
+    public void addSample(double x) {
+        // body
+    }
+
+    public double getMean() {
+        // body
+    }
+}
+```
+
+`**getMean** ở đây là phương thức duyệt qua toàn bộ dữ liệu đã có, sau đó tính giá trị trung bình của chúng. Với lượng dữ liệu lớn thì việc tính toán như trên là rất tốn kém, những lập trình viên không nghĩ đến hiệu năng và chi phí tính toàn thì sẽ gọi hàm **getMean**
+
+Cân nhắc về chi phí tính toán trước, ta nên đổi tên phương thức trên thành **computeMean** (cũng nên thay đổi code để giảm chi phí tính toán)
+
+### Ví dụ: list::size()

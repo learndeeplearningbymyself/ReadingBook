@@ -416,6 +416,7 @@ Ngoài cách gọi tên như trên, chúng ta hoàn toàn có thể sử dụng 
 
 ### 3.5. Sử dụng begin và end theo ý nghĩa bao hàm / không bao hàm
 
+
 Trong lập trình **begin** sẽ được hiểu theo nghĩa là bao hàm giá trị, còn **end** sẽ là không bao hàm giá trị
 
 Cách viết
@@ -477,3 +478,53 @@ public class StatisticsCollector {
 Cân nhắc về chi phí tính toán trước, ta nên đổi tên phương thức trên thành **computeMean** (cũng nên thay đổi code để giảm chi phí tính toán)
 
 ### Ví dụ: list::size()
+
+Xét đoạn code C++ dưới đây với 1 bug khá khó để tìm thấy, đó là nguyên nhân khiến cho tốc độ của server giảm đi rõ rệt.
+
+```c++
+void ShrinkList(list<Node>& list, int max_size) {
+    while (list.size() > max_size) {
+        FreeNode(list.back());
+        list.pop_back();
+    }
+}
+```
+
+Nguyên nhân gây ra bug là do **list.size()** có thời gian tính toán là **O(n)**, do không tính trước số lượng các nodes của list nên hàm **ShrinkList** trên sẽ có thời gian tính toán là **O(n2)**
+
+Đoạn code này hoàn toàn đúng về mặt logic, chạy pass toàn bộ unit test nhưng nếu truyền vào hàm **ShrinkList** một list gồm **1 triệu nodes** thì thời gian tính toán của hàm sẽ lên đến **1 tiếng**
+
+Vấn đề nằm ở chỗ, **list.size** tốn khá nhiều thời gian để thực thi. C++ hay các ngôn ngữ khác đều có các containers, bản thân mỗi container đều có 1 method là **size()** với thời gian thực thi nhất định
+
+### 3.8. Ví dụ: xem xét giữa nhiều cái tên
+
+Cùng xét ví dụ, thực thi các experiments (thử nghiệm) để test traffic cho một trang web. Dưới đây là file setting cho việc test
+
+```json
+experiment_id: 100
+description: "change font size to 14pt"
+traffic_fraction: 5%
+```
+
+Do test nhiều lần nên phải copy/ paste các thuộc tính ở các files setting còn lại
+Nhưng để tránh việc nhiều thuộc tính / giá trị ở các file trùng nhau (file quá dài, tốn công copy / paste) chúng ta muốn ở các experiments khác cũng có thể sử dụng được các giá trị của file setting đã tồn tại (gọi là **inherit prototype pattern**). Nếu thế có thể viết như dưới đây
+
+```json
+experiment_id: 101
+the_other_experiment_id_want_to_reuse: 100
+[Chỉ overwrite các thông tin cần thiết]
+```
+
+Điều cần xem xét ở đây là tên **the_other_experiment_id_want_to_reuse**. Có thể kể ra 4 cái tên phù hợp
+1. template
+2. reuse
+3. copy
+4. inherit
+
+Khi cân nhắc giữa nhiều cái tên, cần suy xét khả năng gây hiểu lầm của từng tên một
+
+Đầu tiên là tên **template**. Đây là một cái tên khá mơ hồ, sẽ có 2 khả năng hiểu ở đây một là **Đây là template** và hai là **Sử dụng template này**. Ngoài ra đây là một từ có tính trừu tượng khá cao, dẫn đến sự hiểu nhầm rằng thử nghiệm với template này không phải là thử nghiệm thật mà là thử nghiệm mang tính trừu tượng.
+
+Thứ hai là từ **reuse**. Đây không hẳn là một cái tên tệ, nhưng vẫn có thể gây ra sự hiểu nhầm ở chỗ **Thử nghiệm này có thể tái sử dụng ~lần**, nên đổi thành **reuse_id**. Thế nhưng có khả năng bị hiểu nhầm là **id tái sử dụng của thử nghiệm này là ~**
+
+Tiếp theo là **copy**. Đây là một cái tên khá tốt, nhưng có thể 

@@ -527,4 +527,21 @@ Khi cân nhắc giữa nhiều cái tên, cần suy xét khả năng gây hiểu
 
 Thứ hai là từ **reuse**. Đây không hẳn là một cái tên tệ, nhưng vẫn có thể gây ra sự hiểu nhầm ở chỗ **Thử nghiệm này có thể tái sử dụng ~lần**, nên đổi thành **reuse_id**. Thế nhưng có khả năng bị hiểu nhầm là **id tái sử dụng của thử nghiệm này là ~**
 
-Tiếp theo là **copy**. Đây là một cái tên khá tốt, nhưng có thể 
+Tiếp theo là **copy**. Đây là một cái tên khá tốt, nhưng có thể gây hiểu nhầm ở chỗ
+```json
+copy: 100
+```
+Có thể hiểu theo 2 hướng **copy 100 lần** hoặc **đây là lần copy thứ 100**. Để thể hiện đúng mục tiêu là **tham chiếu đến các thử nghiệm khác** ta sẽ đặt tên là **copy_experiment**
+
+Cuối cùng là**inherit**. Đây là cái tên rất quen thuộc với các lập trình viên (nó mang ý nghĩa là kế thừa). Khi chúng ta kế thừa 1 class thì toàn bộ methods, properties của class đó sẽ thuộc về class con. Thế nhưng để có sự rõ ràng thì nên đổi thành **inherit_from** hoặc **inherit_from_experiment_id**
+
+Từ những tìm kiếm và cân nhắc trên chúng ta thấy có 2 cái tên phù hợp nhất đó là **copy_experiment** và **inherit_from_experiment_id** vì hai cái tên này khó gây ra sự hiểu nhầm và cũng rõ ràng nhất
+
+### 3.9. Tổng kết
+
+- Tên phù hợp nhất là cái tên không gây ra sự hiểu nhầm nào. Khi người khác đọc code của mình, họ sẽ hiểu được ngay ý đồ của mình
+- Trước khi đặt tên nên có một cái nhìn đa chiều về cái tên đó, tưởng tượng xem liệu nó có gây hiểu nhầm hay không
+- Với giá trị cực đại / tiểu thì tên nên có **max_**, **min_**
+- Với các khoảng thì có thể là **first**, **last** - bao hàm giá trị cuối, **begin**, **end** - không bao hàm gía trị cuối
+- Với giá trị bool thì nên có các tiếp đầu ngữ nhủ **is**, **has**, ...
+- Cũng nên chú ý đến kì vọng của người dùng, ví dụ với hàm **get**, **size** thì nên đáp ứng kì vọng của người dùng về thời gian tính toán nhanh nhất có thể

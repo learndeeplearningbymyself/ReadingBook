@@ -822,13 +822,35 @@ class FrontEndServer {
 
         // Handler
         void ViewProfile(HttpRequest* request);
-        void OpenDatabase(string location, string user);
         void SaveProfile(HttpRequest* request);
+        void FindFriends(HttpRequest* request);
+        
+        // Request and Reply Utility
         string ExtractQueryParam(HttpRequest* request, string param);
         void ReplyOk(HttpRequest* request, string html);
-        void FindFriends(HttpRequest* request);
         void ReplyNotFound(HttpRequest* request, string error);
-        void CloseDatabase(string location);
         
+        // Database helper
+        void OpenDatabase(string location, string user);
+        void CloseDatabase(string location);
 }
+```
+
+Code đã trở nên dễ đọc hơn rất nhiều. Thoạt qua ta có thể nắm rõ cấu trúc chung của code. Sau đó muốn biết chi tiết hơn thì cũng có thể đọc với một thời gian ngắn
+
+### 4.7. Chia code thành các đoạn
+
+Liên tưởng một chút đến chuyện viết văn. Việc chia đoạn văn có thể tóm gọn như sau
+
+- Những phần có tư tưởng giống nhau sẽ được nhóm lại với nhau
+- Chia đoạn để cải thiện tính thị giác, giúp người đọc không bị loạn và đọc dễ hơn
+- Có thể di chuyển, chuyển đổi các đoạn văn cho nhau để phù hợp với nội dung
+
+Viết code cũng vậy, cũng cần chia đoạn. Ví dụ như đoạn code dưới đây, sẽ chẳng có ai muốn đọc nó cả
+
+```python
+# import user email and after that collation to system 's user
+# Finally, display users whose are not friends
+def suggest_new_friends(user, email_password):
+    friends = user.friends()
 ```

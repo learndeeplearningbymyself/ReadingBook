@@ -853,4 +853,103 @@ Viết code cũng vậy, cũng cần chia đoạn. Ví dụ như đoạn code d�
 # Finally, display users whose are not friends
 def suggest_new_friends(user, email_password):
     friends = user.friends()
+    friend_emails = set(f.email for f in friends)
+    contacts = import_contacts(user.email, email_password)
+    contact_emails = set(c.email for c in contacts)
+    non_friend_emails = contact_emails - friend_emails
+    suggested_friends = User.objects.select(email__in=non_friend_emails)
+    display['user'] = user
+    display['friends'] = friends
+    display['suggested_friends'] = suggested_friends
+    return render("suggested_friends", display)
 ```
+
+Nhìn qua sẽ thấy rất khó hiểu, nhưng nếu chia đoạn cho code thì sẽ tốt hơn
+
+```python
+def suggest_new_friends(user, email_password):
+    # get mail of user's friends
+    friends = user.friends()
+    friend_emails = set(f.email for f in friends)
+    
+    # import all email addresses from user's mail account
+    contacts = import_contacts(user.email, email_password)
+    contact_emails = set(c.email for c in contacts)
+
+    # find users whose not friend
+    non_friend_emails = contact_emails - friend_emails
+    suggested_friends = User.objects.select(email__in=non_friend_emails)
+    
+    # display it on page
+    display['user'] = user
+    display['friends'] = friends
+    display['suggested_friends'] = suggested_friends
+    
+    return render("suggested_friends", display)
+```
+
+Việc chia đoạn và thêm comment cho từng đoạn giúp code dễ nhìn hơn rất nhiều. Tương tự như viết văn, ta cũng có khá nhiều cách để chia đoạn code
+
+### 4.8. Tính nhất quán và sở thích cá nhân
+
+Cuối cùng chúng ta sẽ đề cập đến những trường hợp viết code theo sở thích cá nhân. Ví dụ như việc đặt dấu { ở đâu khi định nghĩa class
+
+```java
+class Logger {
+    // body
+}
+
+class Logger
+{
+    // body
+}
+```
+
+Việc lựa chọn style code nào là tuỳ vào lập trình viên, nhưng điều quan trọng ở đây là tính nhất quán trong style code, tránh tình trạng mỗi chỗ một kiểu.
+
+> Key - Style thống nhất quan trọng hơn style chính xác
+
+### 4.9. Tổng kết
+
+Ai cũng thích nhìn code đẹp cả. Việc viết code có cấu trúc, ý nghĩa, thống nhất sẽ giúp việc đọc code dễ và nhanh hơn. Dưới đây là một vài tổng kết
+
+- Với các blocks thực hiện cùng một nhiệm vụ thì nên viết chúng sao cho chúng có sự tương đồng
+- Việc căn lề code cũng sẽ giúp nắm bắt cấu trúc code dễ dàng hơn
+- Nếu đã sắp xếp theo thứ tự A - B - C thì nên giữ thứ tự này ở những chỗ khác. Nên chọn những thứ tự có ý nghĩa và tuân thủ theo thứ tự đó ở mọi chỗ
+- Sử dụng những dòng trống để phân chia đoạn code lớn thành các đoạn code nhỏ theo ý nghĩa logic
+
+## Chương 5: Biết được khi nào nên comment code
+
+Chúng ta vẫn thường nghĩ, comment là để giải thích cách vận hành của code. Nhưng đó chỉ là một phần mục đích của việc comment
+
+> Key - Mục tiêu của comment là để truyền tải ý đồ của người viết code tới người đọc code
+
+Khi viết code, trong đầu chúng ta có rất nhiều ý tưởng và thông tin, thế nhưng những gì người đọc code thấy được chỉ là những dòng code trước mắt mà thôi. 
+
+Chương này sẽ đưa ra các ví dụ về việc khi nào nên đưa ra các thông tin, ý tưởng có trong đầu. Thay vì đề cập đến những khái niệm về comment hay được nói tới thì phần này sẽ trình bày về những phần như sau
+
+- Biết được khi nào **không nên** comment code
+- Truyền tải được suy nghĩ của mình thông qua code
+- Đứng trên phương diện của người đọc để biết được code của mình cần những gì
+
+### 5.1. Không nên comment code
+
+Việc đọc comment đôi khi cũng sẽ ảnh hưởng đến thời gian đọc code. Có những comment vô nghĩa nhưng cũng có những comment có ý nghĩa, vậy sự khác biệt giữa chúng là gì. Ta cùng xem xét ví dụ sau
+
+```c++
+// Define class Account
+class Account {
+    public:
+        // constructor
+        Account();
+
+        // setting new value for profit
+        void SetProfit(double profit);
+
+        // return profit from this Account
+        double GetProfit();
+};
+```
+
+> Key - Không viết comment cho những đoạn code có thể đọc hiểu ngay lập tức
+

@@ -776,7 +776,7 @@ url      = request.POST.get('url');
 ```
 
 Tuy nhiên không nên sắp xếp ngẫu nhiên mà nên sắp xếp theo một ý nghĩa nào đó. Ví dụ như
-- Sắp xếp theo đúng thứ tự các trường <input> của form HTML
+- Sắp xếp theo đúng thứ tự các trường **input** của form HTML
 - Sắp xếp theo mức độ quan trọng giảm dần
 - Sắp xếp theo thứ tự alphabet
 

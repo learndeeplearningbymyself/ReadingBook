@@ -918,7 +918,7 @@ Ai cũng thích nhìn code đẹp cả. Việc viết code có cấu trúc, ý n
 - Nếu đã sắp xếp theo thứ tự A - B - C thì nên giữ thứ tự này ở những chỗ khác. Nên chọn những thứ tự có ý nghĩa và tuân thủ theo thứ tự đó ở mọi chỗ
 - Sử dụng những dòng trống để phân chia đoạn code lớn thành các đoạn code nhỏ theo ý nghĩa logic
 
-## Chương 5: Biết được khi nào nên comment code
+### Chương 5: Biết được khi nào nên comment code
 
 Chúng ta vẫn thường nghĩ, comment là để giải thích cách vận hành của code. Nhưng đó chỉ là một phần mục đích của việc comment
 
@@ -952,4 +952,3 @@ class Account {
 ```
 
 > Key - Không viết comment cho những đoạn code có thể đọc hiểu ngay lập tức
-

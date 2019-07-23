@@ -1,5 +1,28 @@
 ## AWS Solution Architect
 
+## Chương 4: Computing service
+
+### 4.1. Computing service trên AWS
+
+**Computing service** là core tech của system architect cũng như infrastructure service để vận hành ứng dụng. Chương này sẽ trình bày chi tiết về 3 service:
+- EC2 (Elastic Compute Cloud)
+- ECS (Elastic Container Service)
+- Lambda
+
+**EC2** là computing service cung cấp server ảo. Bản chất là IaaS service, có khả năng cung cấp số lượng server đủ dùng ngay lập tức
+
+Có thể kết hợp với **Elastic Load Balancing (ELB)** và **Auto Scaling** để thay đổi số lượng server một cách dynamic tuỳ theo tải
+
+**ECS** là service cung cấp môi trường thực thi Docker container.
+
+**Lambda** là service cung cấp môi trường thực thi program và không cần dùng server. Còn gọi là **Kiến trúc serverless**. Tính mở rộng (scale) cũng như hiệu quả về kinh tế có thể thấy rõ rệt. Không cần mất thời gian, chi phí để set up cũng như maintain server
+
+Ngoài việc hiểu về tính năng của các services, cần hiểu được **use cases** của chúng nữa. Để từ đó có thể biết được khi nào sử dụng service nào sao cho phù hợp
+
+> Point: EC2 cung cấp server ảo. ECS cung cấp môi trường thực thi Docket container. Lambda cung cấp môi trường thực thi program mà không cần server
+
+### 4.2. EC2
+
 ### 6-4. S3
 
 S3 (viết tắt của **Simple Storage Service**) là service lưu trữ object không hạn chế dung lượng cũng như có tính bền cao.
@@ -83,3 +106,18 @@ Có 3 chế độ quản lí đó là **Bucket policy**, **ACL**, **IAM**
 #### URL có gắn chữ kí
 
 Là tính năng đưa ra URL có chỉ định kì hạn đối với object mà ta muốn cho phép truy nhập
+Khá hữu hiệu khi chỉ muốn cho phép truy nhập tạm thời đối với các object nhất định chứ không muốn thay đổi chế độ truy nhập đối với object và bucket
+
+Vì đây không phải là **user control** nên nếu biết URL có gắn chữ kí thì **bất cứ ai** cũng có thể truy cập được.
+
+> Point: URL có gắn chữ kí cho phép truy cập đến các object nhất định một cách tạm thời. Bất kì ai biết được URL này đều có thể truy cập đến object
+
+#### Mã hoá dữ liệu
+
+Dữ liệu lưu tại S3 đều được mã hoá. Có 2 cách mã hoá
+- Mã hoá phía server
+- Mã hoá phía client
+
+**Mã hoá phía server**: mã hoá khi dữ liệu được lưu và được giải mã khi dữ liệu được đọc ra
+
+**Mã hoá phía client**: Sử dụng **AWS SDK** để mã hoá trước khi gửi dữ liệu. Đọc từ metadata của dữ liệu được mã hoá để biết được sử dụng key nào để giải mã.
